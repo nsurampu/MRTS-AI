@@ -1,36 +1,88 @@
 {
     "sample_station":
     {
-        "station_code": "some_code"
+        "station_code": "some_code",
+        "distances": [
+            {"ABC": 212},
+            {"XYZ_1": 646}
+        ]
     },
 
     "Mangonia Park":
     {
-        "station_code": "MGP"
+        "station_code": "MGP",
+        "distances": [
+            {"MGP": 0},
+            {"WPB": },
+            {"LKW": },
+            {"BYB": },
+            {"DLB": },
+            {"BCR": }
+        ]
     },
 
     "West Palm Beach":
     {
-        "station_code": "WPB"
+        "station_code": "WPB",
+        "distances": [
+            {"MGP": },
+            {"WPB": 0},
+            {"LKW": },
+            {"BYB": },
+            {"DLB": },
+            {"BCR": }
+        ]
     },
 
     "Lake Worth":
     {
-        "station_code": "LKW"
+        "station_code": "LKW",
+        "distances": [
+            {"MGP": },
+            {"WPB": },
+            {"LKW": 0},
+            {"BYB": },
+            {"DLB": },
+            {"BCR": }
+        ]
     },
 
     "Boynton Beach":
     {
-        "station_code": "BYB"
+        "station_code": "BYB",
+        "distances": [
+            {"MGP": },
+            {"WPB": },
+            {"LKW": },
+            {"BYB": 0},
+            {"DLB": },
+            {"BCR": }
+        ]
     },
 
     "Delray Beach":
     {
-        "station_code": "DLB"
+        "station_code": "DLB",
+        "distances": [
+            {"MGP": },
+            {"WPB": },
+            {"LKW": },
+            {"BYB": },
+            {"DLB": 0},
+            {"BCR": }
+        ]
     },
 
     "Boca Raton":
     {
-        "station_code": "BCR"
+        "station_code": "BCR",
+        "distances": [
+            {"MGP": },
+            {"WPB": },
+            {"LKW": },
+            {"BYB": },
+            {"DLB": },
+            {"BCR": 0}
+        ]
     }
 }
