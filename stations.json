@@ -1,0 +1,36 @@
+{
+    "sample_station":
+    {
+        "station_code": "some_code"
+    },
+
+    "Mangonia Park":
+    {
+        "station_code": "MGP"
+    },
+
+    "West Palm Beach":
+    {
+        "station_code": "WPB"
+    },
+
+    "Lake Worth":
+    {
+        "station_code": "LKW"
+    },
+
+    "Boynton Beach":
+    {
+        "station_code": "BYB"
+    },
+
+    "Delray Beach":
+    {
+        "station_code": "DLB"
+    },
+
+    "Boca Raton":
+    {
+        "station_code": "BCR"
+    }
+}
