@@ -19,12 +19,12 @@
         "destination_station": "Boca Raton",
         "start_time": "0400",
         "path": [
-            {"Mangonia Park": 0},
-            {"West Palm Beach": 1},
-            {"Lake Worth": 2},
-            {"Boynton Beach": 3},
-            {"Delray Beach": 4},
-            {"Boca Raton": 5}
+            {"0": "Mangonia Park"},
+            {"1": "West Palm Beach"},
+            {"2": "Lake Worth"},
+            {"3": "Boynton Beach"},
+            {"4": "Delray Beach"},
+            {"5": "Boca Raton"}
         ]
     },
 
@@ -35,9 +35,9 @@
         "destination_station": "Boynton Beach",
         "start_time": "0446",
         "path": [
-            {"West Palm Beach": 0},
-            {"Lake Worth": 1},
-            {"Boynton Beach": 2}
+            {"0": "West Palm Beach"},
+            {"1": "Lake Worth"},
+            {"2": "Boynton Beach"}
         ]
     },
 
@@ -48,11 +48,11 @@
         "destination_station": "Delray Beach",
         "start_time": "0520",
         "path": [
-            {"Mangonia Park": 0},
-            {"West Palm Beach": 1},
-            {"Lake Worth": 2},
-            {"Boynton Beach": 3},
-            {"Delray Beach": 4}
+            {"0": "Mangonia Park"},
+            {"1": "West Palm Beach"},
+            {"2": "Lake Worth"},
+            {"3": "Boynton Beach"},
+            {"4": "Delray Beach"}
         ]
     },
 
@@ -63,9 +63,9 @@
         "destination_station": "Boca Raton",
         "start_time": "0622",
         "path": [
-            {"Boynton Beach": 0},
-            {"Delray Beach": 1},
-            {"Boca Raton": 2}
+            {"0": "Boynton Beach"},
+            {"1": "Delray Beach"},
+            {"2": "Boca Raton"}
         ]
     },
 
@@ -76,8 +76,8 @@
         "destination_station": "Boca Raton",
         "start_time": "0730",
         "path": [
-            {"West Palm Beach": 1},
-            {"Boca Raton": 2}
+            {"0": "West Palm Beach"},
+            {"1": "Boca Raton"}
         ]
-    },
+    }
 }
