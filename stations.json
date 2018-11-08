@@ -10,79 +10,78 @@
 
     "Mangonia Park":
     {
-        "station_code": "MGP",
+        "station_code": "100",
         "distances": [
-            {"MGP": 0},
-            {"WPB": },
-            {"LKW": },
-            {"BYB": },
-            {"DLB": },
-            {"BCR": }
+            {"100": 0},
+            {"101": 5},
+            {"102": 0},
+            {"103": 0},
+            {"104": 4},
+            {"105": 0}
         ]
     },
 
     "West Palm Beach":
     {
-        "station_code": "WPB",
+        "station_code": "101",
         "distances": [
-            {"MGP": },
-            {"WPB": 0},
-            {"LKW": },
-            {"BYB": },
-            {"DLB": },
-            {"BCR": }
+            {"100": 5},
+            {"101": 0},
+            {"102": 2},
+            {"103": 4},
+            {"104": 3},
+            {"105": 0}
         ]
     },
 
     "Lake Worth":
     {
-        "station_code": "LKW",
+        "station_code": "102",
         "distances": [
-            {"MGP": },
-            {"WPB": },
-            {"LKW": 0},
-            {"BYB": },
-            {"DLB": },
-            {"BCR": }
-        ]
+            {"100": 0},
+            {"101": 2},
+            {"102": 0},
+            {"103": 0},
+            {"104": 0},
+            {"105": 0}
     },
 
     "Boynton Beach":
     {
-        "station_code": "BYB",
+        "station_code": "103",
         "distances": [
-            {"MGP": },
-            {"WPB": },
-            {"LKW": },
-            {"BYB": 0},
-            {"DLB": },
-            {"BCR": }
+            {"100": 0},
+            {"101": 4},
+            {"102": 0},
+            {"103": 0},
+            {"104": 5},
+            {"105": 0}
         ]
     },
 
     "Delray Beach":
     {
-        "station_code": "DLB",
+        "station_code": "104",
         "distances": [
-            {"MGP": },
-            {"WPB": },
-            {"LKW": },
-            {"BYB": },
-            {"DLB": 0},
-            {"BCR": }
+            {"100": 4},
+            {"101": 3},
+            {"102": 0},
+            {"103": 5},
+            {"104": 0},
+            {"105": 4}
         ]
     },
 
     "Boca Raton":
     {
-        "station_code": "BCR",
+        "station_code": "105",
         "distances": [
-            {"MGP": },
-            {"WPB": },
-            {"LKW": },
-            {"BYB": },
-            {"DLB": },
-            {"BCR": 0}
+            {"100": 0},
+            {"101": 0},
+            {"102": 0},
+            {"103": 0},
+            {"104": 4},
+            {"105": 0}
         ]
     }
 }
