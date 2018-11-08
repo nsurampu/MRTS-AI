@@ -19,7 +19,7 @@
         "starting_station": "Mangonia Park",
         "destination_station": "Boca Raton",
         "start_time": "0400",
-        "speed": "60",
+        "speed": "20",
         "path": [
             {"0": "Mangonia Park"},
             {"1": "West Palm Beach"},
@@ -36,7 +36,7 @@
         "starting_station": "West Palm Beach",
         "destination_station": "Boynton Beach",
         "start_time": "0446",
-        "speed": "60",
+        "speed": "20",
         "path": [
             {"0": "West Palm Beach"},
             {"1": "Lake Worth"},
@@ -50,7 +50,7 @@
         "starting_station": "Mangonia Park",
         "destination_station": "Delray Beach",
         "start_time": "0520",
-        "speed": "60",
+        "speed": "20",
         "path": [
             {"0": "Mangonia Park"},
             {"1": "West Palm Beach"},
@@ -66,7 +66,7 @@
         "starting_station": "Boynton Beach",
         "destination_station": "Boca Raton",
         "start_time": "0622",
-        "speed": "60",
+        "speed": "20",
         "path": [
             {"0": "Boynton Beach"},
             {"1": "Delray Beach"},
@@ -80,7 +80,7 @@
         "starting_station": "West Palm Beach",
         "destination_station": "Boca Raton",
         "start_time": "0730",
-        "speed": "60",
+        "speed": "20",
         "path": [
             {"0": "West Palm Beach"},
             {"1": "Boca Raton"}

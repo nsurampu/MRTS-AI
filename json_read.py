@@ -7,7 +7,7 @@ stations_json = open('stations.json')
 trains_data = json.load(trains_json)
 stations_data = json.load(stations_json)
 
-trains = list(train_data.keys())
+trains = list(trains_data.keys())
 stations = list(stations_data.keys())
 n = len(trains)
 # ts_matrix = numpy.zeros((n, n, n))
@@ -16,14 +16,17 @@ ts_matrix = []
 # station_count = 0
 
 for train in trains:
-    t_code = trains_dict[train]['id']
-    speed = int(trains_data[train]['speed'])
-    s_time = int(trains_data[train]['start_time'])
-    s_station = trains_data[train]['starting_station']
-    s_code = int(stations_data[s_station]['station_code'])
-    for station in stations:
-        code = int(stations_data[station]['station_code'])
-        distance = stations_dict[s_station][code]
-        time = distance / speed
-        arrival_time = s_time + time
-        ts_matrix.append([[t_code], [code], [arrival_time]])
+    if train != "sample_train":
+        t_code = trains_data[train]['id']
+        speed = int(trains_data[train]['speed'])
+        s_time = trains_data[train]['start_time']
+        s_station = trains_data[train]['starting_station']
+        s_code = stations_data[s_station]['station_code']
+        for station_count in range(0, len(stations) - 1):
+            distance_dict = stations_data[s_station]['distances'][station_count]
+            distance_key = list(distance_dict.keys())[0]
+            distance = int(distance_dict[distance_key])
+            time = distance / speed
+            ts_matrix.append([[t_code], [distance_key], [time]])
+
+print(ts_matrix)
