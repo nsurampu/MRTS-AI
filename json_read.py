@@ -26,4 +26,4 @@ for train in trains:
         distance = stations_dict[s_station][code]
         time = distance / speed
         arrival_time = s_time + time
-        ts_matrix.append([t_code, code, arrival_time])
+        ts_matrix.append([[t_code], [code], [arrival_time]])
