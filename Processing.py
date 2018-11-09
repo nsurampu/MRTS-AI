@@ -4,6 +4,7 @@ import numpy
 import math
 import pickle
 from operator import itemgetter
+import random
 
 inf = 999
 
@@ -25,7 +26,9 @@ def hx(source_station,destination_station,adjacency_matrix,ts_matrix):
 
 def rand_breakdown():
     # TODO: define, using randomizer
-    return
+    h_break = random.choice([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+    h_break_val = numpy.random.choice([0, 1], p=[1-h_break, h_break])   # 1 for breakdown of track
+    return h_break_val
 
 # def DFS_parent(adjacency_matrix,k,depth,start,end):
 #     top_k_list = []
