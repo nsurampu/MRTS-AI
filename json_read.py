@@ -4,6 +4,12 @@ import numpy
 import math
 import pickle
 
+def in_day_time(str_time):
+    str_val = str_time.split(':')
+    hours = int(str_val[0])
+    min = int(str_val[1])
+    return hours*60+min
+
 trains_json = open('trains.json')
 stations_json = open('stations.json')
 trains_data = json.load(trains_json)
@@ -70,25 +76,44 @@ for train in trains:
 
 #station_code:station_name
 station_dict  = {}
+station_codes = []
 
 for station in stations:
     if station != 'sample_station':
         code = stations_data[station]['station_code']
         station_dict[code] = station
+        station_codes.append(code)
         distances = stations_data[station]['distances']
         for distance in distances:
             distance_key = list(distance.keys())[0]
             distance = int(distance[distance_key])
             if distance == 0:
-                adjacency_matrix[(code, distance_key)] = 0
+                adjacency_matrix[(code, distance_key)] = distance
             else:
-                adjacency_matrix[(code, distance_key)] = 1
-
-# print(ts_matrix)
-# print("")
+                adjacency_matrix[(code, distance_key)] = distance
+station_codes.sort()
 # print(adjacency_matrix)
-# print("")
-# print(station_dict)
+
+
+for k in station_codes:
+    for i in station_codes:
+        for j in station_codes:
+            # print(i,j,k)
+            if ( adjacency_matrix[(i,k)] + adjacency_matrix[(k,j)] < adjacency_matrix[(i,j)]):
+                adjacency_matrix[(i,j)] = adjacency_matrix[(i,k)] + adjacency_matrix[(k,j)]
+
+for entity in ts_matrix:
+    str_time_list = entity[3]
+    entity[3] = [in_day_time(str_time_list[0])]
+
+
+print(ts_matrix)
+print("")
+print(adjacency_matrix)
+print("")
+print(station_codes)
+
+print(adjacency_matrix[('101','105')])
 
 adjacency_file = open("adjacency_matrix.save",'wb')
 pickle.dump(adjacency_matrix,adjacency_file)
