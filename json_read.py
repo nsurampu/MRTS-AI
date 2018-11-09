@@ -10,8 +10,8 @@ def in_day_time(str_time):
     min = int(str_val[1])
     return hours*60+min
 
-trains_json = open('trains.json')
-stations_json = open('stations.json')
+trains_json = open('admin_trains.json')
+stations_json = open('admin_stations.json')
 trains_data = json.load(trains_json)
 stations_data = json.load(stations_json)
 
@@ -48,7 +48,7 @@ for train in trains:
                 for d in distances:
                     if list(d.keys())[0] == n_code:
                         time = s_time
-                        ts_matrix.append([[t_code], [s_code], [n_code], [time]])   # change distance to time
+                        ts_matrix.append([[t_code], [s_code], [n_code], [time]])
                         s_code = n_code
                         distance = d[n_code]
                         time = distance / speed
@@ -90,16 +90,19 @@ station_codes.sort()
 #             if ( adjacency_matrix[(i,k)] + adjacency_matrix[(k,j)] < adjacency_matrix[(i,j)]):
 #                 adjacency_matrix[(i,j)] = adjacency_matrix[(i,k)] + adjacency_matrix[(k,j)]
 
-for entity in ts_matrix:
+'''for entity in ts_matrix:
     str_time_list = entity[3]
-    entity[3] = [in_day_time(str_time_list[0])]
+    entity[3] = [in_day_time(str_time_list[0])]'''
 
 
-print(ts_matrix)
+'''print(ts_matrix)
 print("")
 print(adjacency_matrix)
 print("")
-print(station_dict)
+print(station_dict)'''
+
+for some in ts_matrix:
+    print(some)
 
 # print(adjacency_matrix[('101','105')])
 
@@ -114,3 +117,6 @@ ts_file.close()
 station_dict_file = open("station_dict.save",'wb')
 pickle.dump(station_dict,station_dict_file)
 station_dict_file.close()
+
+trains_json.close()
+stations_json.close()
