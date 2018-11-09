@@ -94,24 +94,25 @@ for station in stations:
 station_codes.sort()
 # print(adjacency_matrix)
 
+# shortest_matrix_dist = adjacency_matrix.copy()
+#
+# for k in station_codes:
+#     for i in station_codes:
+#         for j in station_codes:
+#             # print(i,j,k)
+#             if ( adjacency_matrix[(i,k)] + adjacency_matrix[(k,j)] < adjacency_matrix[(i,j)]):
+#                 adjacency_matrix[(i,j)] = adjacency_matrix[(i,k)] + adjacency_matrix[(k,j)]
 
-for k in station_codes:
-    for i in station_codes:
-        for j in station_codes:
-            # print(i,j,k)
-            if ( adjacency_matrix[(i,k)] + adjacency_matrix[(k,j)] < adjacency_matrix[(i,j)]):
-                adjacency_matrix[(i,j)] = adjacency_matrix[(i,k)] + adjacency_matrix[(k,j)]
-
-# for entity in ts_matrix:
-#     str_time_list = entity[3]
-#     entity[3] = [in_day_time(str_time_list[0])]
+for entity in ts_matrix:
+    str_time_list = entity[3]
+    entity[3] = [in_day_time(str_time_list[0])]
 
 
 print(ts_matrix)
 print("")
 print(adjacency_matrix)
 print("")
-print(station_codes)
+print(station_dict)
 
 print(adjacency_matrix[('101','105')])
 
