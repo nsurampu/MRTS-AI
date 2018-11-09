@@ -102,9 +102,9 @@ for k in station_codes:
             if ( adjacency_matrix[(i,k)] + adjacency_matrix[(k,j)] < adjacency_matrix[(i,j)]):
                 adjacency_matrix[(i,j)] = adjacency_matrix[(i,k)] + adjacency_matrix[(k,j)]
 
-for entity in ts_matrix:
-    str_time_list = entity[3]
-    entity[3] = [in_day_time(str_time_list[0])]
+# for entity in ts_matrix:
+#     str_time_list = entity[3]
+#     entity[3] = [in_day_time(str_time_list[0])]
 
 
 print(ts_matrix)
