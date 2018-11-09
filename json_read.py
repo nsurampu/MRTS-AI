@@ -69,13 +69,15 @@ for station in stations:
         station_dict[code] = station
         station_codes.append(code)
         distances = stations_data[station]['distances']
+        adjacency_matrix[code] = {}
         for distance in distances:
             distance_key = list(distance.keys())[0]
             distance = int(distance[distance_key])
-            if distance == 0:
-                adjacency_matrix[(code, distance_key)] = distance
+            adjacency_matrix[code][distance_key] = distance
+            '''if distance == 0:
+                adjacency_matrix[(code, distance_key] = distance
             else:
-                adjacency_matrix[(code, distance_key)] = distance
+                adjacency_matrix[(code, distance_key)] = distance'''
 station_codes.sort()
 # print(adjacency_matrix)
 
@@ -99,7 +101,7 @@ print(adjacency_matrix)
 print("")
 print(station_dict)
 
-print(adjacency_matrix[('101','105')])
+# print(adjacency_matrix[('101','105')])
 
 adjacency_file = open("adjacency_matrix.save",'wb')
 pickle.dump(adjacency_matrix,adjacency_file)
