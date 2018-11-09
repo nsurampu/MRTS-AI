@@ -7,6 +7,8 @@ from operator import itemgetter
 import random
 
 inf = 999
+condition = 100
+condition_dict = {0: "broken", 10: "extremely bad", 20: "very bad", 30: "bad", 40: "maintainence required soon", 50: "average", 60: "average", 70: "above average", 80: "good", 90: "very good", 100: "excellent"}
 
 def in_day_time(str_time):
     str_val = str_time.split(':')
@@ -29,6 +31,13 @@ def rand_breakdown():
     h_break = random.choice([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
     h_break_val = numpy.random.choice([0, 1], p=[1-h_break, h_break])   # 1 for breakdown of track
     return h_break_val
+
+def track_condition():
+    h_condition = random.choice([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+    condition = condition - (1 * h_condition)
+    condition = condition - (condition % 10)
+    t_condition = condition_dict[condition]
+    return t_condition
 
 # def DFS_parent(adjacency_matrix,k,depth,start,end):
 #     top_k_list = []
