@@ -41,6 +41,7 @@ for train in trains:
         s_time_h = int(s_time.split(':')[0])
         s_time_m = int(s_time.split(':')[1])
         s_station = trains_data[train]['starting_station']
+        s_code  = stations_data[s_station]['station_code']
         # d_station = trains_data[train]['destination_station']
         for station in  t_path:
             station_key = list(station.keys())[0]
@@ -53,8 +54,8 @@ for train in trains:
                 for d in distances:
                     if list(d.keys())[0] == n_code:
                         time = s_time
-                        ts_matrix.append([[t_code], [s_station], [next_station], [time]])   # change distance to time
-                        s_station = next_station
+                        ts_matrix.append([[t_code], [s_code], [n_code], [time]])   # change distance to time
+                        s_code = n_code
                         distance = d[n_code]
                         time = distance / speed
                         h_time = math.floor(time)
