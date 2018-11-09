@@ -2,11 +2,14 @@ import json
 from pprint import pprint
 import numpy
 import math
+import pickle
 
 trains_json = open('trains.json')
 stations_json = open('stations.json')
 trains_data = json.load(trains_json)
 stations_data = json.load(stations_json)
+
+
 
 trains = list(trains_data.keys())
 stations = list(stations_data.keys())
@@ -65,9 +68,13 @@ for train in trains:
                         s_time_h = h_time
                         s_time_m = m_time
 
+#station_code:station_name
+station_dict  = {}
+
 for station in stations:
     if station != 'sample_station':
         code = stations_data[station]['station_code']
+        station_dict[code] = station
         distances = stations_data[station]['distances']
         for distance in distances:
             distance_key = list(distance.keys())[0]
@@ -77,6 +84,20 @@ for station in stations:
             else:
                 adjacency_matrix[(code, distance_key)] = 1
 
-print(ts_matrix)
-print("")
-print(adjacency_matrix)
+# print(ts_matrix)
+# print("")
+# print(adjacency_matrix)
+# print("")
+# print(station_dict)
+
+adjacency_file = open("adjacency_matrix.save",'wb')
+pickle.dump(adjacency_matrix,adjacency_file)
+adjacency_file.close()
+
+ts_file = open("ts_matrix.save",'wb')
+pickle.dump(ts_matrix,ts_file)
+ts_file.close()
+
+station_dict_file = open("station_dict.save",'wb')
+pickle.dump(station_dict,station_dict_file)
+station_dict_file.close()

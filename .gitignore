@@ -40,5 +40,5 @@ Thumbs.db
 core
 inp
 out
-.save
+*.save
 save
