@@ -32,14 +32,14 @@ public class TrainResultActivity extends AppCompatActivity {
     private ProgressBar loadTrainDataProgressBar;
     private HashMap<String, String> trainData;
     private JSONObject trainJSON;
-    private RecyclerViewAdpaterClass recyclerViewAdpaterClass;
+    private RecyclerViewAdapterClass recyclerViewAdpaterClass;
     private Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_train_result);
         trainList = findViewById(R.id.train_list);
-        trainList.setAdapter(recyclerViewAdpaterClass);
+        trainList.setLayoutManager(new LinearLayoutManager(this));
         loadTrainDataProgressBar = findViewById(R.id.pb_load_train_data);
         trainData = new HashMap<>();
         context = this;
@@ -71,14 +71,12 @@ public class TrainResultActivity extends AppCompatActivity {
                     JSONArray jsonArray = trainJSON.getJSONArray("0");
                     Log.d(TAG, "jsonArray " + jsonArray);
                     if (jsonArray == null) {
-                        // TODO: print no trains exist
                         trainData.put("NO TRAINS EXIST", "NA");
                         Log.d(TAG, "null resp: " + trainData);
-                        recyclerViewAdpaterClass = new RecyclerViewAdpaterClass(trainData);
-                        trainList.setLayoutManager(new LinearLayoutManager(context));
-//                        recyclerViewAdpaterClass.notifyDataSetChanged();
+                        recyclerViewAdpaterClass = new RecyclerViewAdapterClass(trainData);
+                        trainList.setAdapter(recyclerViewAdpaterClass);
                         loadTrainDataProgressBar.setVisibility(View.GONE);
-//                        trainList.setVisibility(View.VISIBLE);
+                        trainList.setVisibility(View.VISIBLE);
                     } else {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONArray tempArray = jsonArray.getJSONArray(i);
@@ -89,21 +87,19 @@ public class TrainResultActivity extends AppCompatActivity {
                             Log.d(TAG, trainName + " time: " + trainTime);
                         }
                         Log.d(TAG, "non null resp: " + trainData);
-                        recyclerViewAdpaterClass = new RecyclerViewAdpaterClass(trainData);
-                        trainList.setLayoutManager(new LinearLayoutManager(context));
-//                        recyclerViewAdpaterClass.notifyDataSetChanged();
+                        recyclerViewAdpaterClass = new RecyclerViewAdapterClass(trainData);
+                        trainList.setAdapter(recyclerViewAdpaterClass);
                         loadTrainDataProgressBar.setVisibility(View.GONE);
-//                        trainList.setVisibility(View.VISIBLE);
+                        trainList.setVisibility(View.VISIBLE);
                     }
                 } catch (Exception e) {
                     Log.d(TAG, "ERROR " + e);
                     Log.d(TAG, "jsonarray null resp: " + trainData);
                     trainData.put("NO TRAINS EXIST", "NA");
-                    recyclerViewAdpaterClass = new RecyclerViewAdpaterClass(trainData);
-                    trainList.setLayoutManager(new LinearLayoutManager(context));
-//                    recyclerViewAdpaterClass.notifyDataSetChanged();
+                    recyclerViewAdpaterClass = new RecyclerViewAdapterClass(trainData);
+                    trainList.setAdapter(recyclerViewAdpaterClass);
                     loadTrainDataProgressBar.setVisibility(View.GONE);
-//                    trainList.setVisibility(View.VISIBLE);
+                    trainList.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -112,24 +108,23 @@ public class TrainResultActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.d(TAG, "request: " + error);
                 trainData.put("NO TRAINS EXIST", "NA");
+                recyclerViewAdpaterClass = new RecyclerViewAdapterClass(trainData);
+                trainList.setAdapter(recyclerViewAdpaterClass);
                 loadTrainDataProgressBar.setVisibility(View.GONE);
                 trainList.setVisibility(View.VISIBLE);
-//                recyclerViewAdpaterClass.notifyDataSetChanged();
             }
         });
-//        Log.d(TAG,jsonObjectRequest.getUrl());
-//        Log.d(TAG,""+jsonObjectRequest.getBodyContentType());
-//        Log.d(TAG,"request: "+ jsonObjectRequest);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
     }
 
 }
-class RecyclerViewAdpaterClass extends RecyclerView.Adapter<ItemViewHolder> {
+class RecyclerViewAdapterClass extends RecyclerView.Adapter<ItemViewHolder> {
     private HashMap<String, String> trainNameAndTrainTime;
     private ArrayList<String> keySet;
 
-    public RecyclerViewAdpaterClass(HashMap<String, String> trainNameAndTrainTime) {
+
+    public RecyclerViewAdapterClass(HashMap<String, String> trainNameAndTrainTime) {
         this.trainNameAndTrainTime = trainNameAndTrainTime;
         Log.d(TrainResultActivity.class.getSimpleName(),"ADAPTER: "+trainNameAndTrainTime);
         keySet = new ArrayList<>(trainNameAndTrainTime.keySet());
@@ -140,7 +135,7 @@ class RecyclerViewAdpaterClass extends RecyclerView.Adapter<ItemViewHolder> {
         Context context = parent.getContext();
         int layoutIdForListItem = R.layout.train_item_layout;
         LayoutInflater inflater = LayoutInflater.from(context);
-        boolean shouldAttachToParentImmediately = true;
+        boolean shouldAttachToParentImmediately = false;
         View v = inflater.inflate(layoutIdForListItem, parent, shouldAttachToParentImmediately);
         ItemViewHolder itemViewHolder = new ItemViewHolder(v);
         return itemViewHolder;
@@ -155,7 +150,8 @@ class RecyclerViewAdpaterClass extends RecyclerView.Adapter<ItemViewHolder> {
 
     @Override
     public int getItemCount() {
-        return keySet.size();
+        Log.d(TrainResultActivity.class.getSimpleName(),"itemcount: "+((keySet == null)? 0: keySet.size()));
+        return (keySet == null)? 0 : keySet.size();
     }
 }
 
