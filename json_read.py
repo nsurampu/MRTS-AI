@@ -48,7 +48,7 @@ for train in trains:
                 next_station = station[s_pos[0]]
                 n_code = stations_data[next_station]['station_code']
                 distances = stations_data[s_station]['distances']
-                # TODO: if there is no path then set time to 0
+                # TODO: if there is no path then set time to 0 **Naren
                 for d in distances:
                     if list(d.keys())[0] == n_code:
                         time = s_time

@@ -36,11 +36,11 @@ def is_train(ts_matrix, track, time):
 
 
 def hx(source_station, destination_station, adjacency_matrix, ts_matrix):
-    # TODO: define the funtion
+    # TODO: define the funtion **Naren
     h_val = adjacency_matrix[(source_station, destination_station)]
     return h_val
 
-
+# No callin yet
 def rand_breakdown():
     # TODO: define, using randomizer
     h_break = random.choice(
@@ -101,7 +101,7 @@ def remove_edge(graph, node_from, node_to, dist=UNDEFINED):
 
 
 def path_sort(A):
-    # TODO: SORT THE PATH ACCORDING TO WHICH PATH HAS HIGHEST VALUE OF H(X)
+    # TODO: SORT THE PATH ACCORDING TO WHICH PATH HAS HIGHEST VALUE OF H(X) **Naren
     return
 
 def path(previous, node_start, node_end):
@@ -133,9 +133,12 @@ def path(previous, node_start, node_end):
 
 
 def shortest_path(graph, node_start, node_end=UNDEFINED):
+    INFINITY = 999
+    UNDEFINED = None
     distances = {}
     previous = {}
     Q = priorityDictionary()
+    # Q = {}
     # print(type(INFINITY))
     for v in graph:
         distances[v] = INFINITY
@@ -228,6 +231,7 @@ def reroute(ts_matrix, adjacency_matrix, track, time):
     fresh_matrix = adjacency_matrix.copy()
     fresh_matrix[track] = INFINITY
     A = k_shortest_path(adjacency_matrix, track[0], track[1],num_of_routes)
+    A = A[1:]
     print("Values of A:  \n",A,"\n")
     path_sort(A)
 

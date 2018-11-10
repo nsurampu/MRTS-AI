@@ -43,10 +43,9 @@ class priorityDictionary(dict):
             insertionPoint = 0
             while 1:
                 smallChild = 2*insertionPoint+1
-                if smallChild+1 < len(heap) and \
-                        heap[smallChild] > heap[smallChild+1]:
+                if (False if (type(smallChild+1) == type(len(heap))) else (smallChild+1 < len(heap))) and (False if (type(heap[smallChild]) == type(heap[smallChild+1])) else (heap[smallChild] > heap[smallChild+1])):
                     smallChild += 1
-                if smallChild >= len(heap) or lastItem <= heap[smallChild]:
+                if (False if (type(smallChild) == type(len(heap))) else (smallChild >= len(heap))) or (False if (type(lastItem) == type(heap[smallChild])) else (lastItem <= heap[smallChild])) :
                     heap[insertionPoint] = lastItem
                     break
                 heap[insertionPoint] = heap[smallChild]
@@ -69,14 +68,17 @@ class priorityDictionary(dict):
         dict.__setitem__(self,key,val)
         heap = self.__heap
         if len(heap) > 2 * len(self):
-            self.__heap = [(v,k) for k,v in self.iteritems()]
+            self.__heap = [(v,k) for k,v in self.items()]
             self.__heap.sort()  # builtin sort likely faster than O(n) heapify
         else:
             newPair = (val,key)
             insertionPoint = len(heap)
             heap.append(None)
-            while insertionPoint > 0 and \
-                    newPair < heap[(insertionPoint-1)//2]:
+            # print( newPair,"    ",heap[(insertionPoint-1)//2])
+            # typediff = False
+            # if(type(newPair) == type(heap[(insertionPoint-1)//2])):
+            #     typediff = True
+            while insertionPoint > 0 and (False if (type(newPair) == type(heap[(insertionPoint-1)//2])) else (newPair < heap[(insertionPoint-1)//2])):
                 heap[insertionPoint] = heap[(insertionPoint-1)//2]
                 insertionPoint = (insertionPoint-1)//2
             heap[insertionPoint] = newPair
