@@ -10,9 +10,15 @@ from prioritydictionary import priorityDictionary
 INFINITY = 999
 UNDEFINED = None
 condition = 100
+
+track_conditions = {"100": [{"101": 100}, {"102": 100}, {"103": 100}, {"104": 100}, {"105": 100}],
+"101": [{"102": 100}, {"103": 100}, {"104": 100}, {"105": 100}],
+"102": [{"103": 100}, {"104": 100}, {"105": 100}],
+"103": [{"104": 100}, {"105": 100}],
+"104": [{"105": 100}]}
+
 condition_dict = {0: "broken", 10: "extremely bad", 20: "very bad", 30: "bad", 40: "maintainence required soon",
                   50: "average", 60: "average", 70: "above average", 80: "good", 90: "very good", 100: "excellent"}
-
 
 # TODO: Push messages to log
 
@@ -64,12 +70,17 @@ def rand_breakdown():
 
 
 def track_condition():
-    h_condition = random.choice(
-        [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
-    condition = condition - (1 * h_condition)
-    condition = condition - (condition % 10)
-    t_condition = condition_dict[condition]
-    return t_condition
+    for station_1 in track_conditions:
+        track_key = list(station_1.keys())[0]
+        track_list = track_conditions[track_key]
+        for track in track_list:
+            t_key = list(track.keys())[0]
+            t_condition = track[t_key]
+            h_condition = random.choice([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+            t_condition = t_condition - (1 * h_condition)
+            track[t_key] = t_condition
+            # t_condition = t_condition - (condition % 10)
+            # t_condition = condition_dict[condition]
 
 
 def add_node(graph, node):
