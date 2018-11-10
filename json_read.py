@@ -4,6 +4,9 @@ import numpy
 import math
 import pickle
 
+INFINITY = 999
+UNDEFINED = None
+
 def in_day_time(str_time):
     str_val = str_time.split(':')
     hours = int(str_val[0])
@@ -45,6 +48,7 @@ for train in trains:
                 next_station = station[s_pos[0]]
                 n_code = stations_data[next_station]['station_code']
                 distances = stations_data[s_station]['distances']
+                # TODO: if there is no path then set time to 0
                 for d in distances:
                     if list(d.keys())[0] == n_code:
                         time = s_time
@@ -103,6 +107,8 @@ print(station_dict)'''
 
 for some in ts_matrix:
     print(some)
+
+print(adjacency_matrix)
 
 # print(adjacency_matrix[('101','105')])
 

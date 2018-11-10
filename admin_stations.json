@@ -5,6 +5,7 @@
         "distances": [
             {"ABC": 212},
             {"XYZ_1": 646}
+            {"Not connected": 999}
         ]
     },
 
