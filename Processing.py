@@ -11,14 +11,15 @@ INFINITY = 999
 UNDEFINED = None
 condition = 100
 
-track_conditions = {"100": [{"101": 100}, {"102": 100}, {"103": 100}, {"104": 100}, {"105": 100}],
-"101": [{"102": 100}, {"103": 100}, {"104": 100}, {"105": 100}],
-"102": [{"103": 100}, {"104": 100}, {"105": 100}],
-"103": [{"104": 100}, {"105": 100}],
-"104": [{"105": 100}]}
+track_conditions = {"100": {"101": 100, "102": 100, "103": 100, "104": 100, "105": 100},
+"101": {"102": 100, "103": 100, "104": 100, "105": 100},
+"102": {"103": 100, "104": 100, "105": 100},
+"103": {"104": 100, "105": 100},
+"104": {"105": 100}}
 
 condition_dict = {0: "broken", 10: "extremely bad", 20: "very bad", 30: "bad", 40: "maintainence required soon",
                   50: "average", 60: "average", 70: "above average", 80: "good", 90: "very good", 100: "excellent"}
+
 
 # TODO: Push messages to log
 
@@ -56,7 +57,7 @@ def is_train(ts_matrix, track, time):
 
 def hx(source_station, destination_station, adjacency_matrix, ts_matrix):
     # TODO: define the funtion **Naren
-    h_val = adjacency_matrix[(source_station, destination_station)]
+    distance = adjacency_matrix[source_station][destination_station]
     return h_val
 
 # No callin yet
@@ -126,7 +127,23 @@ def remove_edge(graph, node_from, node_to, dist=UNDEFINED):
 
 def path_sort(A):
     # TODO: SORT THE PATH ACCORDING TO WHICH PATH HAS HIGHEST VALUE OF H(X) **Naren
-    return
+    heuristic_dict = {}
+    for route in A:
+        heuristic = 0
+        distance = route['dist']
+        path = route['path']
+        for i in range(0, len(path) - 1):
+            if int(path[i]) > int(path[i+1]):
+                t_cond = track_conditions[path[i+1]][path[i]]
+            else:
+                t_cond = track_conditions[path[i]][path[i+1]]
+            heuristic = heuristic + 0.4 * (1 - (t_cond / 100))
+        heuristic = heuristic + 0.6 * distance
+        heuristic = round(heuristic, 4)
+        heuristic_dict[heuristic] = path
+    #heuristic_dict = [(p, heuristic_dict[p]) for p in sorted(heuristic_dict, key=heuristic_dict.get)]
+    sorted_heuristic_dict = {p: heuristic_dict[p] for p in sorted(heuristic_dict, key=heuristic_dict.get)}
+    return sorted_heuristic_dict
 
 def path(previous, node_start, node_end):
     route = []
