@@ -14,6 +14,8 @@ condition_dict = {0: "broken", 10: "extremely bad", 20: "very bad", 30: "bad", 4
                   50: "average", 60: "average", 70: "above average", 80: "good", 90: "very good", 100: "excellent"}
 
 
+# TODO: Push messages to log
+
 def in_day_time(str_time):
     str_val = str_time.split(':')
     hours = int(str_val[0])
@@ -221,7 +223,7 @@ def reroute(ts_matrix, adjacency_matrix, track, time):
     for entity in ts_matrix:
         if (entity[1][0] == track[0] and entity[2][0] == track[1] and (entity[3])[0] >= time):
             reroute_needed.append(entity)
-    reroute_needed.sort()
+    # reroute_needed.sort()
     # print(reroute_needed)
     reroute_needed.sort(key=lambda x: x[3][0])
     print("Reroutes needed:",reroute_needed,"\n")
@@ -231,10 +233,32 @@ def reroute(ts_matrix, adjacency_matrix, track, time):
     fresh_matrix = adjacency_matrix.copy()
     fresh_matrix[track] = INFINITY
     A = k_shortest_path(adjacency_matrix, track[0], track[1],num_of_routes)
-    A = A[1:]
-    print("Values of A:  \n",A,"\n")
-    path_sort(A)
-
+    reroute = A[1:]
+    print("Values of A:  \n",reroute,"\n")
+    path_sort(reroute)
+    for train in reroute_needed:
+        train_no = train[0][0]
+        train_spec = []
+        for entity in ts_matrix:
+            if(train_no == entity[0][0]):
+                train_spec.append(entity)
+        train_spec.sort(key=lambda x: x[3][0])
+        print("Train spec   ",train_spec,"\n")
+        train_spec_previous = []
+        train_spec_next = []
+        st = False
+        for edge in train_spec:
+            if(edge[1][0] == track[0] and edge[2][0] == track[1]):
+                st = True
+                continue
+            if st == True:
+                train_spec_next.append(edge)
+            else:
+                train_spec_previous.append(edge)
+        print("Prev ",train_spec_previous,"\n")
+        print("Next", train_spec_next,"\n")
+        for possible_reroute in reroute:
+            
 
 
 def update():
