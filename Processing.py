@@ -25,13 +25,19 @@ def in_day_time(str_time):
 def from_day_time(time):
     hour = int(time/60)
     min = int(time%60)
-    str_val = str(hour) + ":" + str(min)
+    str_val = str(hour) + ":" + str(min).zfill(2)
     return str_val
 
 def convert_tsm(ts_matrix):
     for entity in ts_matrix:
         str_time_list = entity[3]
         entity[3] = [in_day_time(str_time_list[0])]
+    return ts_matrix
+
+def unconvert_tsm(ts_matrix):
+    for entity in ts_matrix:
+        str_time_list = entity[3]
+        entity[3] = [from_day_time(str_time_list[0])]
     return ts_matrix
 
 
@@ -224,7 +230,9 @@ def k_shortest_path(graph, node_start, node_end, max_k=2):
 
 def reroute(ts_matrix, adjacency_matrix, track, time,speed_matrix):
     # track is defined as (source,dest)
+    # print(len(ts_matrix))
     reroute_needed = []
+    original = ts_matrix.copy()
     for entity in ts_matrix:
         if (entity[1][0] == track[0] and entity[2][0] == track[1] and (entity[3])[0] >= time):
             reroute_needed.append(entity)
@@ -239,8 +247,9 @@ def reroute(ts_matrix, adjacency_matrix, track, time,speed_matrix):
     fresh_matrix[track] = INFINITY
     A = k_shortest_path(adjacency_matrix, track[0], track[1],num_of_routes)
     reroute = A[1:]
-    print("Values of A:  \n",reroute,"\n")
+    print("Values of reroute:  \n",reroute,"\n")
     path_sort(reroute)
+    final_route_list = []
     for train in reroute_needed:
         train_no = train[0][0]
         speed = speed_matrix[train_no]
@@ -252,10 +261,12 @@ def reroute(ts_matrix, adjacency_matrix, track, time,speed_matrix):
         print("Train spec   ",train_spec)
         train_spec_previous = []
         train_spec_next = []
+        train_spec_reqd = []
         st = False
         for edge in train_spec:
             if(edge[1][0] == track[0] and edge[2][0] == track[1]):
                 st = True
+                train_spec_reqd.append(edge)
                 continue
             if st == True:
                 train_spec_next.append(edge)
@@ -265,10 +276,15 @@ def reroute(ts_matrix, adjacency_matrix, track, time,speed_matrix):
         print("Next", train_spec_next,)
         final_route = []
         for possible_reroute in reroute:
+            print()
+            print(possible_reroute)
             stations = possible_reroute['path']
-            curr_time = train_spec[0][3][0]
+            print("stations",stations)
+            curr_time = train_spec_reqd[0][3][0]
+            print(curr_time)
             intermediate_route = []
-            for i in range(0,len(stations)-2):
+            for i in range(0,len(stations)-1):
+                # print(stations[i])
                 intermediate_route.append([[train_no],[stations[i]],[stations[i+1]],[curr_time]])
                 curr_time = curr_time + int(60*(adjacency_matrix[stations[i]][stations[i+1]]/speed))
             for edge in train_spec_next:
@@ -286,11 +302,36 @@ def reroute(ts_matrix, adjacency_matrix, track, time,speed_matrix):
                     break
             if(keep == True):
                 final_route = intermediate_route
-                break
+                # break
         for edge in train_spec_previous:
             final_route.append(edge)
         final_route.sort(key=lambda x: x[3][0])
+        final_route_list.append(final_route)
         print("Final Route", final_route,"\n")
+        new_ts_matrix =[]
+
+
+    print(reroute_needed)
+    #Delete the existing train
+    for entity in original:
+        print(entity)
+        add = True
+        for train in reroute_needed:
+            train_no = train[0][0]
+            print(entity[0][0])
+            print(train_no)
+            if(train_no == entity[0][0]):
+                add = False
+        if(add == True):
+            new_ts_matrix.append(entity)
+    print(new_ts_matrix)
+    for final_route in final_route_list:
+        for entity in final_route:
+            new_ts_matrix.append(entity)
+    new_ts_matrix.sort(key=lambda x: x[0][0])
+    print(new_ts_matrix)
+    print(len(new_ts_matrix))
+    return new_ts_matrix
 
 def update():
     adjacency_file = open("adjacency_matrix.save", 'rb')
@@ -298,6 +339,7 @@ def update():
 
     ts_file = open("ts_matrix.save", 'rb')
     ts_matrix = pickle.load(ts_file)
+    # print(len(ts_matrix))
 
     station_dict_file = open("station_dict.save", 'rb')
     station_dict = pickle.load(station_dict_file)
@@ -308,7 +350,10 @@ def update():
     # changes teh time format
     ts_matrix = convert_tsm(ts_matrix)
     # TODO: CHANGE
-    reroute(ts_matrix, adjacency_matrix, ('103', '104'), 200,speed_matrix)
+    new_ts_matrix = reroute(ts_matrix, adjacency_matrix, ('103', '104'), 200,speed_matrix)
+    ts_matrix = unconvert_tsm(ts_matrix)
+    print(ts_matrix)
+    # TODO: Saving?? **Naren
 
     station_dict_file.close()
     adjacency_file.close()

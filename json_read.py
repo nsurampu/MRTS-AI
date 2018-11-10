@@ -113,6 +113,8 @@ for some in ts_matrix:
 
 print(adjacency_matrix)
 
+print(len(ts_matrix))
+
 # print(adjacency_matrix[('101','105')])
 
 adjacency_file = open("adjacency_matrix.save",'wb')
