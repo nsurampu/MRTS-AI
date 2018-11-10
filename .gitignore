@@ -43,5 +43,5 @@ inp
 out
 *.save
 save
-test
-text
+test*
+text*

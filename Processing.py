@@ -22,6 +22,11 @@ def in_day_time(str_time):
     min = int(str_val[1])
     return hours * 60 + min
 
+def from_day_time(time):
+    hour = int(time/60)
+    min = int(time%60)
+    str_val = str(hour) + ":" + str(min)
+    return str_val
 
 def convert_tsm(ts_matrix):
     for entity in ts_matrix:
@@ -238,12 +243,13 @@ def reroute(ts_matrix, adjacency_matrix, track, time,speed_matrix):
     path_sort(reroute)
     for train in reroute_needed:
         train_no = train[0][0]
+        speed = speed_matrix[train_no]
         train_spec = []
         for entity in ts_matrix:
             if(train_no == entity[0][0]):
                 train_spec.append(entity)
         train_spec.sort(key=lambda x: x[3][0])
-        print("Train spec   ",train_spec,"\n")
+        print("Train spec   ",train_spec)
         train_spec_previous = []
         train_spec_next = []
         st = False
@@ -255,12 +261,36 @@ def reroute(ts_matrix, adjacency_matrix, track, time,speed_matrix):
                 train_spec_next.append(edge)
             else:
                 train_spec_previous.append(edge)
-        print("Prev ",train_spec_previous,"\n")
-        print("Next", train_spec_next,"\n")
+        print("Prev ",train_spec_previous)
+        print("Next", train_spec_next,)
         final_route = []
         for possible_reroute in reroute:
-            
-
+            stations = possible_reroute['path']
+            curr_time = train_spec[0][3][0]
+            intermediate_route = []
+            for i in range(0,len(stations)-2):
+                intermediate_route.append([[train_no],[stations[i]],[stations[i+1]],[curr_time]])
+                curr_time = curr_time + int(60*(adjacency_matrix[stations[i]][stations[i+1]]/speed))
+            for edge in train_spec_next:
+                intermediate_route.append([[train_no],edge[1],edge[2],[curr_time]])
+                curr_time = curr_time + int(60*(adjacency_matrix[edge[1][0]][edge[2][0]]/speed))
+            print("intermediate_route   ",intermediate_route)
+            keep = True
+            for edge in intermediate_route:
+                for entity in ts_matrix:
+                    if(entity[1] == edge[1] and entity[2] == edge[2] and entity[3] == edge[3]):
+                        keep = False
+                        print(entity,"  ",edge)
+                        break
+                if(keep == False):
+                    break
+            if(keep == True):
+                final_route = intermediate_route
+                break
+        for edge in train_spec_previous:
+            final_route.append(edge)
+        final_route.sort(key=lambda x: x[3][0])
+        print("Final Route", final_route,"\n")
 
 def update():
     adjacency_file = open("adjacency_matrix.save", 'rb')
