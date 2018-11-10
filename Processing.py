@@ -217,7 +217,7 @@ def k_shortest_path(graph, node_start, node_end, max_k=2):
     return A
 
 
-def reroute(ts_matrix, adjacency_matrix, track, time):
+def reroute(ts_matrix, adjacency_matrix, track, time,speed_matrix):
     # track is defined as (source,dest)
     reroute_needed = []
     for entity in ts_matrix:
@@ -257,6 +257,7 @@ def reroute(ts_matrix, adjacency_matrix, track, time):
                 train_spec_previous.append(edge)
         print("Prev ",train_spec_previous,"\n")
         print("Next", train_spec_next,"\n")
+        final_route = []
         for possible_reroute in reroute:
             
 
@@ -271,13 +272,17 @@ def update():
     station_dict_file = open("station_dict.save", 'rb')
     station_dict = pickle.load(station_dict_file)
 
+    speed_file = open("speed_matrix.save", 'rb')
+    speed_matrix = pickle.load(speed_file)
+
     # changes teh time format
     ts_matrix = convert_tsm(ts_matrix)
     # TODO: CHANGE
-    reroute(ts_matrix, adjacency_matrix, ('103', '104'), 200)
+    reroute(ts_matrix, adjacency_matrix, ('103', '104'), 200,speed_matrix)
 
     station_dict_file.close()
     adjacency_file.close()
+    speed_file.close()
     ts_file.close()
     return
 

@@ -27,6 +27,7 @@ n = len(trains)
 ts_matrix = []
 adjacency_matrix = {}
 # train_count = 0
+speed_matrix = {}
 # station_count = 0
 
 for train in trains:
@@ -34,6 +35,7 @@ for train in trains:
         t_code = trains_data[train]['id']
         t_path = trains_data[train]['path']
         speed = int(trains_data[train]['speed'])
+        speed_matrix[t_code] = speed
         s_time = trains_data[train]['start_time']
         s_time_h = int(s_time.split(':')[0])
         s_time_m = int(s_time.split(':')[1])
@@ -104,6 +106,7 @@ print("")
 print(adjacency_matrix)
 print("")
 print(station_dict)'''
+print(speed_matrix)
 
 for some in ts_matrix:
     print(some)
@@ -115,6 +118,10 @@ print(adjacency_matrix)
 adjacency_file = open("adjacency_matrix.save",'wb')
 pickle.dump(adjacency_matrix,adjacency_file)
 adjacency_file.close()
+
+speed_file = open("speed_matrix.save",'wb')
+pickle.dump(speed_matrix,speed_file)
+speed_file.close()
 
 ts_file = open("ts_matrix.save",'wb')
 pickle.dump(ts_matrix,ts_file)
