@@ -4,7 +4,7 @@
         "station_code": "some_code",
         "distances": [
             {"ABC": 212},
-            {"XYZ_1": 646}
+            {"XYZ_1": 646},
             {"Not connected": 999}
         ]
     },
