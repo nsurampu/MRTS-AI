@@ -13,8 +13,8 @@ def in_day_time(str_time):
     min = int(str_val[1])
     return hours*60+min
 
-trains_json = open('admin_trains.json')
-stations_json = open('admin_stations.json')
+trains_json = open('admin_trains.json', 'r')
+stations_json = open('admin_stations.json', 'r')
 trains_data = json.load(trains_json)
 stations_data = json.load(stations_json)
 
@@ -101,11 +101,11 @@ station_codes.sort()
     entity[3] = [in_day_time(str_time_list[0])]'''
 
 
-'''print(ts_matrix)
-print("")
+pprint(ts_matrix)
+'''print("")
 print(adjacency_matrix)
 print("")
-print(station_dict)'''
+print(station_dict)
 print(speed_matrix)
 
 for some in ts_matrix:
@@ -113,7 +113,7 @@ for some in ts_matrix:
 
 print(adjacency_matrix)
 
-print(len(ts_matrix))
+print(len(ts_matrix))'''
 
 # print(adjacency_matrix[('101','105')])
 

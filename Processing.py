@@ -1,4 +1,5 @@
 import json
+import pprint
 from pprint import pprint
 import numpy
 import math
@@ -375,13 +376,33 @@ def update():
     speed_file = open("speed_matrix.save", 'rb')
     speed_matrix = pickle.load(speed_file)
 
+    client_json = open('client_stations.json', 'r')
+    client_data = json.load(client_json)
+    client_json.close()
     # changes teh time format
     ts_matrix = convert_tsm(ts_matrix)
     # TODO: CHANGE
     new_ts_matrix = reroute(ts_matrix, adjacency_matrix, ('103', '104'), 200,speed_matrix)
     ts_matrix = unconvert_tsm(ts_matrix)
-    print(ts_matrix)
+    pprint(new_ts_matrix)
+    station_keys = list(client_data.keys())
     # TODO: Saving?? **Naren
+
+    for station in station_keys:
+        client_data[station]['trains'] = []
+    pprint(client_data)
+    for station in station_keys:
+        station = str(station)
+        for route in new_ts_matrix:
+            if station == route[1][0]:
+                client_data[station]['trains'].append({route[0][0]: route[3][0]})
+
+    client_json = open('test_client_stations.json', 'w')
+    json.dump(client_data, client_json)
+    client_json.close()
+
+    #with open('client_stations.json', 'w') as jf:
+        #json.dump(ts_matrix, jf)
 
     station_dict_file.close()
     adjacency_file.close()
