@@ -395,6 +395,13 @@ def update():
         station = str(station)
         for route in new_ts_matrix:
             if station == route[1][0]:
+                if isinstance(route[3][0], int):
+                    time = route[3][0] / 60
+                    time = round(time, 2)
+                    h_time = math.floor(time)
+                    m_time = int((time - h_time) * 60)
+                    h_time = h_time
+                    route[3][0] = str(h_time) + ":" + str(m_time)
                 client_data[station]['trains'].append({route[0][0]: route[3][0]})
 
     client_json = open('test_client_stations.json', 'w')
