@@ -406,7 +406,7 @@ class processing_class:
                         route[3][0] = str(h_time) + ":" + str(m_time)
                     client_data[station]['trains'].append({route[0][0]: route[3][0]})
 
-        client_json = open('test_client_stations.json', 'w')
+        client_json = open('client_stations.json', 'w')
         json.dump(client_data, client_json)
         client_json.close()
 
