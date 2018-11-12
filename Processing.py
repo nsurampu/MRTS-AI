@@ -357,7 +357,7 @@ class processing_class:
             for entity in final_route:
                 new_ts_matrix.append(entity)
         new_ts_matrix.sort(key=lambda x: x[0][0])
-        print(new_ts_matrix)
+        print("\nUpdated TS Matrix:   ",new_ts_matrix,'\n')
         #print(len(new_ts_matrix))
         return new_ts_matrix
 
