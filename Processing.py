@@ -385,10 +385,12 @@ class processing_class:
         track_1 = input("Enter first station for breakdown: ")
         track_2 = input("Enter second station for breakdown: ")
         new_ts_matrix = self.reroute(ts_matrix, adjacency_matrix, (track_1, track_2), 200,speed_matrix)
-        ts_matrix = self.unconvert_tsm(ts_matrix)
+        new_ts_matrix = self.unconvert_tsm(new_ts_matrix)
         pprint(new_ts_matrix)
         station_keys = list(client_data.keys())
         # TODO: Saving?? **Naren
+
+
 
         for station in station_keys:
             client_data[station]['trains'] = []

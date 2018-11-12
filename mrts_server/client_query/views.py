@@ -15,10 +15,15 @@ def client_query(request):
     start_station_name = parameters['source']
     stop_station_name = parameters['destination']
     stations_path = global_path + 'client_stations.json'
+    stations_codes_file = global_path + 'admin_stations.json'
+    with open(stations_codes_file,'rb') as f:
+        stations_data = json.load(f)
+        start_station_code = stations_data[start_station_name]['station_code']
+        stop_station_code = stations_data[stop_station_name]['station_code']
     with open(stations_path,'rb') as f:
         station_data = json.load(f)
-    start_station = station_data[start_station_name]
-    stop_station = station_data[stop_station_name]
+        start_station = station_data[start_station_code]
+        stop_station = station_data[stop_station_code]
     trains_start_station = list(start_station['trains'])
     trains_stop_station = list(stop_station['trains'])
     counter_1 = 0
@@ -46,13 +51,20 @@ def client_query(request):
     common_trains_dict = {}
     common_trains_dict[0] = common_trains
     to_return_json = json.dumps(common_trains_dict)
-    
+    print('to return \n',to_return_json,'\n\n')
     return HttpResponse(to_return_json)
 
 def list_stations(request):
     print(request)
     station_path = global_path + 'client_stations.json'
     with open(station_path,'rb') as f:
-        station_names = list(json.load(f).keys())
+        # station_codes = list(json.load(f).keys())
+        station_codes = json.load(f)
+        print(type(station_codes))
+        station_names = []
+        for station_code in station_codes:
+            print(station_code)
+            # print(type(station_code))
+            station_names.append(station_codes[station_code]['station_name'])
         station_names_json = json.dumps(station_names)
     return HttpResponse(str(station_names_json))
