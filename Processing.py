@@ -58,11 +58,9 @@ class processing_class:
 
 
     def hx(self, source_station, destination_station, adjacency_matrix, ts_matrix):
-        # TODO: define the funtion **Naren
         distance = adjacency_matrix[source_station][destination_station]
         return h_val
 
-    # No callin yet
     def rand_breakdown(self):
         # TODO: define, using randomizer
         h_break = random.choice(
@@ -354,13 +352,13 @@ class processing_class:
                     add = False
             if(add == True):
                 new_ts_matrix.append(entity)
-        print(new_ts_matrix)
+        # print(new_ts_matrix)
         for final_route in final_route_list:
             for entity in final_route:
                 new_ts_matrix.append(entity)
         new_ts_matrix.sort(key=lambda x: x[0][0])
         print(new_ts_matrix)
-        print(len(new_ts_matrix))
+        #print(len(new_ts_matrix))
         return new_ts_matrix
 
     def update(self):
@@ -393,7 +391,7 @@ class processing_class:
 
         for station in station_keys:
             client_data[station]['trains'] = []
-            
+
         for station in station_keys:
             station = str(station)
             for route in new_ts_matrix:
