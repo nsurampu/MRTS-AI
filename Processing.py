@@ -212,7 +212,8 @@ class processing_class:
         distances, previous = self.shortest_path(graph, node_start)
         # print(distances)
         # print(previous)
-
+        # A: Confirmed path_sort (Queue)
+        #B: Posiible paths (Queue)
         A = [{'dist': distances[node_end],
               'path': self.path(previous, node_start, node_end)}]
         B = []
