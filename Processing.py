@@ -400,7 +400,7 @@ class processing_class:
                     if isinstance(route[3][0], int):
                         time = route[3][0] / 60
                         time = round(time, 2)
-                        h_time = time % 60
+                        h_time = math.floor(time % 60)
                         m_time = int((time - h_time) * 60)
                         h_time = h_time
                         route[3][0] = str(h_time) + ":" + str(m_time)

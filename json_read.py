@@ -59,7 +59,7 @@ for train in trains:
                         distance = d[n_code]
                         time = distance / speed
                         time = round(time, 2)
-                        h_time = time % 60
+                        h_time = math.floor(time % 60)
                         m_time = int(((time - h_time) * 60) + s_time_m)
                         h_time = h_time + s_time_h
                         s_time = str(h_time) + ":" + str(m_time)
