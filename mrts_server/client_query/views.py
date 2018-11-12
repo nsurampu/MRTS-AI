@@ -48,8 +48,14 @@ def client_query(request):
             counter_2 += 1
         elif train_2 > train_1:
             counter_1 += 1
+        elif train_1 == train_2 and converted_time_1 >= converted_time_2:
+            counter_1 += 1
+            counter_2 += 1
+    if common_trains == []:
+        return HttpResponse(None)
     common_trains_dict = {}
     common_trains_dict[0] = common_trains
+    print(common_trains_dict)
     to_return_json = json.dumps(common_trains_dict)
     print('to return \n',to_return_json,'\n\n')
     return HttpResponse(to_return_json)
