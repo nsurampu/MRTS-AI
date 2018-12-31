@@ -1,6 +1,6 @@
 # MRTS-AI
 
-A rerouting and rescheduling AI for Mass Rapid Transport Systems.
+A rerouting and rescheduling AI for Subways or any Mass Rapid Transport Systems.
 
 ## Contribution rules:
 1. No direct contribution to master branch.
